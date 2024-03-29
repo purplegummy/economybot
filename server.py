@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Response
 from pydantic import BaseModel
 from models import Member, Stocks, Base
 from schemas import MemberSchema, StocksSchema, MemberCreate, StocksCreate
@@ -17,10 +17,10 @@ def get_db():
 
 @app.get("/getMember/{memberId}")
 async def get_member(memberId, db: Session= Depends(get_db)):
-      member = db.query(Member).filter(Member.memberId == memberId).first()
-      if member != None:
-        return member
-    
+      member = db.query(Member).filter(Member.memberId == memberId).first()    
+      return member
+
+  
 
 @app.post("/addMember")
 async def member(request: MemberCreate, db: Session=Depends(get_db)):
@@ -30,6 +30,14 @@ async def member(request: MemberCreate, db: Session=Depends(get_db)):
         db.refresh(member)
         return member
 
+@app.post("/updateMember")
+async def updateMember(request: MemberCreate, db: Session=Depends(get_db)):
+        db.query(Member).filter(Member.memberId == request.memberId).update({'memberId': request.memberId, 'money': round(request.money, 2)})
+        db.commit()
+        
+@app.get('/leaderboard')
+async def leaderboard(db: Session=Depends(get_db)):
+      pass
 @app.post("/buystock")
 async def buyStock(request: StocksCreate, db: Session=Depends(get_db)):
       stock = Stocks(member_id=request.member_id, buyPrice=request.buyPrice, shares=request.shares, buyTime=datetime.now())
