@@ -34,17 +34,26 @@ async def member(request: MemberCreate, db: Session=Depends(get_db)):
 async def updateMember(request: MemberCreate, db: Session=Depends(get_db)):
         db.query(Member).filter(Member.memberId == request.memberId).update({'memberId': request.memberId, 'money': round(request.money, 2)})
         db.commit()
+        db.refresh()
         
 @app.get('/leaderboard')
 async def leaderboard(db: Session=Depends(get_db)):
-      pass
+      #get the members with the 3 highest values for money  and   money
+      
+
+      print("Server -")
+      
+      topThree = db.query(Member).order_by(Member.money.desc()).limit(3).all()
+      #get information on 3 highest values for money  and   money
+      print(topThree)
+      return topThree
 @app.post("/buystock")
 async def buyStock(request: StocksCreate, db: Session=Depends(get_db)):
       stock = Stocks(member_id=request.member_id, buyPrice=request.buyPrice, shares=request.shares, buyTime=datetime.now())
       db.add(stock)
       db.commit()
       db.refresh(stock)
-      return stock
+
 
     
 

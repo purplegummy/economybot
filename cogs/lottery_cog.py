@@ -20,7 +20,25 @@ class Lottery(commands.Cog, name="Lottery"):
                 'maxWinProbability': .0003,
                 'midWinProbability': .02,
                 'minWinProbability': .01,
-            }
+            },
+            'Less Butt Ticket': {
+                'price': 10.00,
+                'maxWinProbability': 0.0003,
+                'midWinProbability': 0.002,
+                'minWinProbability': 0.001,
+            },
+            'Okay Ticket': {
+                'price': 20.00,
+                'maxWinProbability':  0.0003,
+                'midWinProbability': 0.0002,
+                'minWinProbability': 0.0001,
+            },
+              'Okay Ticket': {
+                'price': 100.00,
+                'maxWinProbability': 0.000002,
+                'midWinProbability': .00002,
+                'minWinProbability': 0.0003,
+            },
 
         }
  

@@ -47,9 +47,13 @@ class Player:
 
           return True
      
-     
+
      async def getUser(self, memberId: int):
           user = requests.get(self.BASE_URL+"/getMember/"+ str(memberId))
           return user
          
-         
+     async def getLeaderboard(self):
+          top = requests.get(self.BASE_URL+"/leaderboard")
+        
+          return top.content
+    

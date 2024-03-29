@@ -39,6 +39,19 @@ class Basic(commands.Cog, name="Basic"):
        
         await ctx.send("sent $" + str(amount) + " to " + "<@" + str(member.id) + ">")
         
+    @commands.command()
+    async def lb(self, ctx):
+        players = await self.player.getLeaderboard()
+        if not players:
+            await ctx.send("No one has registered yet!")
+            return
+
+        msg = "```"
+        for i, player in enumerate(players):
+            msg += str(i+1) + ". " + str(player[1]) + " - $" + str(player[0]) + "\n"
+        msg += "```"
+        await ctx.send(msg)
+        return
 
     @commands.command()
     async def myMoney(self, ctx):
