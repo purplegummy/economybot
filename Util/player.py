@@ -23,7 +23,7 @@ class Player:
         
         user = requests.post(self.BASE_URL + "/addMember/",data=json.dumps({"memberId": memberId, "money": 2000}) )
 
-        print(str(user.content) + " has joined!")
+
      
      async def exists(self, memberId: int) -> bool:
          
@@ -44,8 +44,10 @@ class Player:
           
           requests.post(self.BASE_URL+"/updateMember", data=json.dumps({"memberId": senderId, "money": sender["money"]-money }))
           requests.post(self.BASE_URL+"/updateMember", data=json.dumps({"memberId": recipientId, "money": recipient["money"]+money }))
-          print("gave " + str(money)+ " away!")
+
           return True
+     
+     
      async def getUser(self, memberId: int):
           user = requests.get(self.BASE_URL+"/getMember/"+ str(memberId))
           return user

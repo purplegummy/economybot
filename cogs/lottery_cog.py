@@ -4,7 +4,7 @@ import os
 
 from discord.ext import commands
 from Util.player import Player
-class Lottery(commands.Cog, name="Basic"):
+class Lottery(commands.Cog, name="Lottery"):
     def __init__(self, bot):
         load_dotenv()
         self.BASE_URL = os.getenv('BASE_URL')
